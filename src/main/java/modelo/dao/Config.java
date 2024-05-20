@@ -1,4 +1,4 @@
-package modelo;
+package modelo.dao;
 
 public interface Config {
 
