@@ -8,6 +8,7 @@ import modelo.bean.Caballero;
 public class ModeloCaballero {
 
 	private Conector conector;
+
 	
 	public ArrayList<Caballero> getAll(){
 		ArrayList<Caballero> caballeros = new ArrayList<>();
@@ -15,9 +16,8 @@ public class ModeloCaballero {
 		
 		ModeloArma ma = new ModeloArma();
 		ModeloEscudo me = new ModeloEscudo();
-		
-		ma.setConector(new Conector());
-		me.setConector(new Conector());
+		ma.setConector(conector);
+		me.setConector(conector);
 		try {			
 			Statement st = this.conector.getConexion().createStatement();
 			ResultSet rs = st.executeQuery(sql);		
@@ -32,6 +32,7 @@ public class ModeloCaballero {
 				c.setEscudo(me.getEscudo(rs.getInt("escudo_id")));
 				caballeros.add(c);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
