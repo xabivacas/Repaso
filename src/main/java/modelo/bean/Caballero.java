@@ -7,7 +7,22 @@ public class Caballero {
 	private int fuerza;
 	private String foto;
 	private int experiencia;
+	private Arma arma;
+	private Escudo escudo;
 	
+	
+	public Arma getArma() {
+		return arma;
+	}
+	public void setArma(Arma arma) {
+		this.arma = arma;
+	}
+	public Escudo getEscudo() {
+		return escudo;
+	}
+	public void setEscudo(Escudo escudo) {
+		this.escudo = escudo;
+	}
 	public int getExperiencia() {
 		return experiencia;
 	}
