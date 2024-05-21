@@ -3,13 +3,38 @@ package modelo.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import modelo.bean.Arma;
+import modelo.bean.Escudo;
 
 public class ModeloArma {
 
 	private Conector conector;
 
+	public ArrayList<Arma> getAll(){
+		ArrayList<Arma> armas = new ArrayList<>();
+		String sql = "SELECT * FROM armas";
+		try {
+			Statement st = conector.getConexion().createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				Arma a = new Arma();
+				a.setId(rs.getInt("id"));
+				a.setNombre(rs.getString("nombre"));
+				a.setCapacidad_danio(rs.getInt("capacidad_danio"));
+				
+				armas.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return armas;
+		
+	}
 	public Arma getArma(int id) {
 		Arma a = new Arma();
 		String sql = "SELECT * FROM ARMAS WHERE ID=?";

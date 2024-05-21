@@ -19,6 +19,7 @@
 					<th scope="col">EXP</th>
 					<th scope="col">Arma</th>
 					<th scope="col">Escudo</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +31,9 @@
 						<th scope="col">${caballero.experiencia}</th>
 						<th scope="col">${caballero.arma.nombre}</th>
 						<th scope="col">${caballero.escudo.nombre}</th>
+						<th scope="col">
+							<a href="CreateCaballeros">NuevoCaballero</a>
+						</th>
 					</tr>
 				</c:forEach>
 			</tbody>

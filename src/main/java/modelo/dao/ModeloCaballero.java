@@ -40,6 +40,25 @@ public class ModeloCaballero {
 		
 		return caballeros;
 	}
+	
+	public boolean store(Caballero c) {
+		String sql = "INSERT INTO CABALLEROS (NOMBRE,FUERZA,ARMA_ID,ESCUDO_ID,EXPERIENCIA) VALUES (?,?,?,?,?)";
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement(sql);
+			pst.setString(1, c.getNombre());
+			pst.setInt(2, c.getFuerza());
+			pst.setInt(3, c.getArma().getId());
+			pst.setInt(4, c.getEscudo().getId());
+			pst.setInt(5, 0);
+			
+			pst.execute();
+			return true;
+			
+		} catch (SQLException e) {
+			return false;
+		}
+		
+	}
 
 	public Conector getConector() {
 		return conector;
