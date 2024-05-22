@@ -32,6 +32,7 @@ public class IndexCaballeros extends HttpServlet {
 		ModeloCaballero mc = new ModeloCaballero();
 		mc.setConector(new Conector());
 		request.setAttribute("caballeros", mc.getAll());
+		request.setAttribute("msg", request.getParameter("msg"));
 		request.getRequestDispatcher("indexCaballeros.jsp").forward(request, response);
 	}
 

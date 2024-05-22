@@ -10,6 +10,12 @@
 </head>
 <body>
 	<div class="container mt-5">
+	<a class="row offset-11 mb-2 btn btn-primary color-white" href="CreateCaballeros" role="button">+</a>
+		<c:if test="${ msg=='insertOk'}">
+			<div class="alert alert-success" role="alert">
+				Todo bien con la insercion
+			</div>
+		</c:if>
 		<table class="table">
 			<thead class="table-primary">
 				<tr>
@@ -31,9 +37,6 @@
 						<th scope="col">${caballero.experiencia}</th>
 						<th scope="col">${caballero.arma.nombre}</th>
 						<th scope="col">${caballero.escudo.nombre}</th>
-						<th scope="col">
-							<a href="CreateCaballeros">NuevoCaballero</a>
-						</th>
 					</tr>
 				</c:forEach>
 			</tbody>

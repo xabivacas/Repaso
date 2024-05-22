@@ -49,14 +49,36 @@ public class ModeloArma {
 			a.setId(rs.getInt("id"));
 			a.setNombre(rs.getString("nombre"));
 			a.setCapacidad_danio(rs.getInt("capacidad_danio"));
+			return a;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
+	}
+	
+	public Arma getArma(String id) {
+		Arma a = new Arma();
+		String sql = "SELECT * FROM ARMAS WHERE ID=?";
 		
-		
-		return a;
+		if(id.isBlank()) {
+			return null;
+		}
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement(sql);;
+			
+			pst.setInt(1, Integer.parseInt(id));
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			a.setId(rs.getInt("id"));
+			a.setNombre(rs.getString("nombre"));
+			a.setCapacidad_danio(rs.getInt("capacidad_danio"));
+			return a;
+			
+		} catch (SQLException e) {
+			return null;
+		}
 	}
 	public Conector getConector() {
 		return conector;

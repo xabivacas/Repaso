@@ -47,6 +47,16 @@ public class Caballero {
 	public void setFuerza(int fuerza) {
 		this.fuerza = fuerza;
 	}
+	
+	public void setFuerza(String fuerza) {
+		if(fuerza.isBlank()) {
+			this.fuerza = 0;
+		}else {
+			this.fuerza = Integer.parseInt(fuerza);
+			
+		}
+	}
+	
 	public String getFoto() {
 		return foto;
 	}

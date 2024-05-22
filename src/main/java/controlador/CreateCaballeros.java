@@ -41,6 +41,7 @@ public class CreateCaballeros extends HttpServlet {
 		ArrayList<Escudo> escudos = me.getAll();
 		request.setAttribute("armas", armas);
 		request.setAttribute("escudos", escudos);
+		request.setAttribute("msg", request.getParameter("msg"));
 		request.getRequestDispatcher("createCaballero.jsp").forward(request, response);
 	}
 

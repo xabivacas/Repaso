@@ -41,6 +41,19 @@ public class ModeloCaballero {
 		return caballeros;
 	}
 	
+	public boolean nombreRepe(Caballero c) {
+		String sql = "SELECT * FROM CABALLERO WHERE NOMBRE=?";
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement(sql);
+			pst.setString(1, c.getNombre());
+			ResultSet rs =pst.executeQuery();
+			
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+		
+	}
 	public boolean store(Caballero c) {
 		String sql = "INSERT INTO CABALLEROS (NOMBRE,FUERZA,ARMA_ID,ESCUDO_ID,EXPERIENCIA) VALUES (?,?,?,?,?)";
 		try {

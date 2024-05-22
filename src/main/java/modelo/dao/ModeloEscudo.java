@@ -48,15 +48,39 @@ public class ModeloEscudo {
 			es.setId(rs.getInt("id"));
 			es.setNombre(rs.getString("nombre"));
 			es.setCapacidad_defensa(rs.getInt("capacidad_defensa"));
+			return es;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Escudo getEscudo(String id) {
+		Escudo es = new Escudo();
+		String sql = "SELECT * FROM ESCUDOS WHERE ID=?";
+		
+		if(id.isBlank()) {
+			return null;
 		}
 		
-		
-		return es;
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement(sql);;
+			pst.setInt(1, Integer.parseInt(id));
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			es.setId(rs.getInt("id"));
+			es.setNombre(rs.getString("nombre"));
+			es.setCapacidad_defensa(rs.getInt("capacidad_defensa"));
+			return es;
+			
+		} catch (SQLException e) {
+			return null;
+		}
+
 	}
+	
 	public Conector getConector() {
 		return conector;
 	}

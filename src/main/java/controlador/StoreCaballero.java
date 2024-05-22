@@ -38,15 +38,26 @@ public class StoreCaballero extends HttpServlet {
 		me.setConector(conector);
 		mc.setConector(conector);
 		
+		
 		Caballero c = new Caballero();
+		
 		c.setNombre(request.getParameter("nombre"));
-		c.setFuerza(Integer.parseInt(request.getParameter("fuerza")));
-		c.setArma(ma.getArma(Integer.parseInt(request.getParameter("arma"))));
-		c.setEscudo(me.getEscudo(Integer.parseInt(request.getParameter("escudo"))));
+		c.setFuerza(request.getParameter("fuerza"));
+		c.setArma(ma.getArma(request.getParameter("arma")));
+		c.setEscudo(me.getEscudo(request.getParameter("escudo")));
 		
-		mc.store(c);
+		if(Validador.caballeroValido(c, conector)) {
+			mc.store(c);
+			response.sendRedirect("IndexCaballeros?msg=insertOk");
+		}else {
+			response.sendRedirect("CreateCaballeros?msg=insertError");
+		}
 		
-		response.sendRedirect("IndexCaballeros");
+		
+		
+		
+		
+		
 	}
 
 	/**
