@@ -1,5 +1,7 @@
 package modelo.dao;
 
+import java.util.ArrayList;
+
 import modelo.bean.Caballero;
 
 public class Validador {
@@ -23,7 +25,7 @@ public class Validador {
 			valido= true;
 		}
 		
-		if(mc.nombreRepe(c)) {
+		if((mc.nombreRepe(c))) {
 			valido=false;
 			return valido;
 		}else {
@@ -31,5 +33,14 @@ public class Validador {
 		}
 		
 		return valido;
+	}
+	public static boolean deleteValido(Integer id, ArrayList<Caballero> caballeros) {
+
+		for(Caballero c : caballeros) {
+			if(c.getId()==id) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

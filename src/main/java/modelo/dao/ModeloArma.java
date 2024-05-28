@@ -60,9 +60,6 @@ public class ModeloArma {
 		Arma a = new Arma();
 		String sql = "SELECT * FROM ARMAS WHERE ID=?";
 		
-		if(id.isBlank()) {
-			return null;
-		}
 		try {
 			PreparedStatement pst = conector.getConexion().prepareStatement(sql);;
 			

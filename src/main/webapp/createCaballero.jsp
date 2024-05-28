@@ -29,7 +29,7 @@
 				
 				<label for="arma" class="form-label">Arma</label>
 				<select class="form-select mb-3" aria-label="Default select example" name="arma">
-					<option value=""></option>
+					<option value="0"></option>
 					<c:forEach items="${armas}" var="arma">
 						<option value="${arma.id}">${arma.nombre}</option>
 					</c:forEach>
@@ -37,7 +37,7 @@
 				
 				<label for="escudo" class="form-label">Escudo</label>
 				<select class="form-select mb-3" aria-label="Default select example" name="escudo">
-					<option value=""></option>
+					<option value="0"></option>
 					<c:forEach items="${escudos }" var="escudo">
 						<option value="${escudo.id }">${escudo.nombre }</option>
 					</c:forEach>

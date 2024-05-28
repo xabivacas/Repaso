@@ -2,7 +2,6 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.bean.*;
-import modelo.dao.Conector;
-import modelo.dao.ModeloCaballero;
+import modelo.dao.*;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class DeleteCaballeros
  */
-@WebServlet("/IndexCaballeros")
-public class IndexCaballeros extends HttpServlet {
+@WebServlet("/DeleteCaballeros")
+public class DeleteCaballeros extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexCaballeros() {
+    public DeleteCaballeros() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,40 +31,45 @@ public class IndexCaballeros extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Obtener caballeros 
 		ModeloCaballero mc = new ModeloCaballero();
 		mc.setConector(new Conector());
 		ArrayList<Caballero> caballeros = mc.getAll();
-		ComparadorCaballero comp = new ComparadorCaballero(request.getParameter("orderBy"));
 		
-		caballeros.sort(comp);
+		//Para el while de alante
+		int cont = 0;
 		
-		request.setAttribute("caballeros", caballeros);
-		request.setAttribute("msg", request.getParameter("msg"));
-		request.getRequestDispatcher("indexCaballeros.jsp").forward(request, response);
+		//Conseguir los ids y al arraylist donde mas adelante se meten los ids
+		String ids = request.getParameter("eliminador");
+		ArrayList<Integer> idsDelete = new ArrayList<>();
+		
+		//Pasar los id a int
+		for(String s : ids.split(",")) {
+			idsDelete.add(Integer.parseInt(s));
+		}
+		
+		//Boolean si el delete es valido
+		boolean valido=true;
+		
+		while(cont<idsDelete.size()&&valido) {
+			valido=Validador.deleteValido(idsDelete.get(cont), caballeros);
+			cont++;
+		}
+		if(valido) {
+			for(int id : idsDelete) {
+				mc.delete(id);
+			}
+		}
+
+		response.sendRedirect("IndexCaballeros");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModeloCaballero mc = new ModeloCaballero();
-		mc.setConector(new Conector());
-		ArrayList<Caballero> caballeros = mc.getAll();
-		
-		Iterator<Caballero> it = caballeros.iterator();
-		
-		String nombre = request.getParameter("buscador");
-		
-
-		while(it.hasNext()) {
-			
-			if(!(it.next().getNombre().equalsIgnoreCase(nombre))) {
-				it.remove();
-			}
-		}
-		
-		request.setAttribute("caballeros", caballeros);
-		request.getRequestDispatcher("indexCaballeros.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

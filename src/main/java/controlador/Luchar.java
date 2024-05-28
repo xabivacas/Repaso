@@ -1,30 +1,29 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.bean.*;
+import modelo.bean.Caballero;
+import modelo.bean.Lucha;
 import modelo.dao.Conector;
 import modelo.dao.ModeloCaballero;
+import modelo.dao.ModeloLucha;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class Luchar
  */
-@WebServlet("/IndexCaballeros")
-public class IndexCaballeros extends HttpServlet {
+@WebServlet("/Luchar")
+public class Luchar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexCaballeros() {
+    public Luchar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,15 +33,26 @@ public class IndexCaballeros extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloCaballero mc = new ModeloCaballero();
-		mc.setConector(new Conector());
-		ArrayList<Caballero> caballeros = mc.getAll();
-		ComparadorCaballero comp = new ComparadorCaballero(request.getParameter("orderBy"));
+		ModeloLucha ml = new ModeloLucha();
+		Conector c = new Conector();
+		mc.setConector(c);
+		ml.setConector(c);
 		
-		caballeros.sort(comp);
+		Caballero luchador1=mc.getUno(request.getParameter("luchador1"));
+		Caballero luchador2=mc.getUno(request.getParameter("luchador"));
 		
-		request.setAttribute("caballeros", caballeros);
-		request.setAttribute("msg", request.getParameter("msg"));
-		request.getRequestDispatcher("indexCaballeros.jsp").forward(request, response);
+		Lucha lucha = new Lucha();
+		lucha.setLuchador1(luchador1);
+		lucha.setLuchador2(luchador2);
+		lucha.setGanador();
+		ml.storeLucha(lucha);
+		
+		request.setAttribute("luchador1", luchador1);
+		request.setAttribute("luchador2", luchador2);
+		request.setAttribute("idGanador", lucha.getGanador().getId());
+		request.setAttribute("msg", "datos");
+		
+		request.getRequestDispatcher("lucha.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,22 +61,14 @@ public class IndexCaballeros extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloCaballero mc = new ModeloCaballero();
 		mc.setConector(new Conector());
-		ArrayList<Caballero> caballeros = mc.getAll();
 		
-		Iterator<Caballero> it = caballeros.iterator();
+		Caballero ganador=mc.getUno(request.getParameter("idGanador"));
+		request.setAttribute("ganador", ganador);
+		request.setAttribute("msg", "ganador");
 		
-		String nombre = request.getParameter("buscador");
 		
-
-		while(it.hasNext()) {
-			
-			if(!(it.next().getNombre().equalsIgnoreCase(nombre))) {
-				it.remove();
-			}
-		}
+		request.getRequestDispatcher("lucha.jsp").forward(request, response);
 		
-		request.setAttribute("caballeros", caballeros);
-		request.getRequestDispatcher("indexCaballeros.jsp").forward(request, response);
 	}
 
 }

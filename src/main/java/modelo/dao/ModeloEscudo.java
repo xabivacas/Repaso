@@ -59,10 +59,6 @@ public class ModeloEscudo {
 		Escudo es = new Escudo();
 		String sql = "SELECT * FROM ESCUDOS WHERE ID=?";
 		
-		if(id.isBlank()) {
-			return null;
-		}
-		
 		try {
 			PreparedStatement pst = conector.getConexion().prepareStatement(sql);;
 			pst.setInt(1, Integer.parseInt(id));
