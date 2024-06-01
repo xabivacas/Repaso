@@ -1,13 +1,29 @@
 package modelo.bean;
 
-public class Lucha {
+import java.util.Date;
 
+public class Lucha {
+	
+	private int id;
 	private Caballero luchador1;
 	private Caballero luchador2;
 	private Caballero ganador;
+	private Date fecha;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Caballero getLuchador1() {
 		return luchador1;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	public void setLuchador1(Caballero luchador1) {
 		this.luchador1 = luchador1;
@@ -31,6 +47,9 @@ public class Lucha {
 			this.ganador=luchador2;
 		}
 		
+	}
+	public void setGanador(Caballero ganador) {
+		this.ganador=ganador;
 	}
 	
 	

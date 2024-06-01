@@ -19,6 +19,9 @@
         <div class="offset-8 col-1">
             <a class="row offset-11 mb-2 btn btn-primary color-white" href="CreateCaballeros" role="button">+</a>
         </div>
+        <div class="offset-8 col-1">
+            <a class="row offset-11 mb-2 btn btn-danger color-white" href="CreateMasivoCaballeros" role="button">Masivo</a>
+        </div>
     </div>
 
     <div class="row">

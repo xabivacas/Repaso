@@ -1,7 +1,8 @@
 package modelo.dao;
 
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modelo.bean.Lucha;
 
@@ -31,5 +32,35 @@ public class ModeloLucha {
 
 	public void setConector(Conector conector) {
 		this.conector = conector;
+	}
+	
+	public ArrayList<Lucha> getAll(){
+		String sql = "SELECT * FROM LUCHAS";
+		
+		ArrayList<Lucha> luchas = new ArrayList<>();
+		
+		ModeloCaballero mc = new ModeloCaballero();
+		mc.setConector(conector);
+		
+		try {
+			Statement st = conector.getConexion().createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				Lucha l = new Lucha();
+				l.setId(rs.getInt("id"));
+				l.setLuchador1(mc.getUno(rs.getInt("caballero1_id")+""));
+				l.setLuchador2(mc.getUno(rs.getInt("caballero2_id")+""));
+				l.setGanador(mc.getUno(rs.getInt("ganador_id")+""));
+				l.setFecha(rs.getDate("fecha"));
+				luchas.add(l);
+				
+			}
+			return luchas;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

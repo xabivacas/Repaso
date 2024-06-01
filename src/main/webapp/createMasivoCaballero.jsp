@@ -16,37 +16,15 @@
 						Error al insertar los datos
 				</div>
 			</c:if>
-			<form action="StoreCaballero" method="post">
-				<div class="mb-3">
-				  <label for="nombre" class="form-label">Nombre</label>
-				  <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp">
-				</div>
-				
-				<div class="mb-3">
-				  <label for="fuerza" class="form-label">Fuerza</label>
-				  <input type="number" class="form-control" id="fuerza" name="fuerza">
-				</div>
-				
-				<label for="arma" class="form-label">Arma</label>
-				<select class="form-select mb-3" aria-label="Default select example" name="arma">
-					<option value="0"></option>
-					<c:forEach items="${armas}" var="arma">
-						<option value="${arma.id}">${arma.nombre}</option>
-					</c:forEach>
-				</select>
-				
-				<label for="escudo" class="form-label">Escudo</label>
-				<select class="form-select mb-3" aria-label="Default select example" name="escudo">
-					<option value="0"></option>
-					<c:forEach items="${escudos }" var="escudo">
-						<option value="${escudo.id }">${escudo.nombre }</option>
-					</c:forEach>
-				</select>
-				
-				<b>Escoja una foto de producto</b> (Opcional)<br />
-            	<input type="file" name="foto" /><br /><br />
-				<button type="submit" class="btn btn-primary">Enviar</button>
-			</form>
+			<div class="form-floating">
+				<form action="StoreMasivoCaballero" method="post">
+					<div class="mb-3">
+					  <label for="nombre" class="form-label">Insertar Masivo</label>
+					 <textarea  class="form-control" name="listaInsertar" placeholder="Nombre,Fuerza,Id del arma,Id del escudo" ></textarea>
+					</div>
+					<button type="submit" class="btn btn-secondary">Enviar</button>
+				</form>
+			</div>
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

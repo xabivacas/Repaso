@@ -48,7 +48,7 @@ public class ModeloCaballero {
 			pst.setString(1, c.getNombre());
 			ResultSet rs =pst.executeQuery();
 			
-			return true;
+			return rs.next();
 		} catch (SQLException e) {
 			return false;
 		}
